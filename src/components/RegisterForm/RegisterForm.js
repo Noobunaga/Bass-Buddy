@@ -28,7 +28,7 @@ class RegisterForm extends Component {
 
   render() {
     return (
-      <form className="formPanel" onSubmit={this.registerUser}>
+      <form className="box" onSubmit={this.registerUser}>
         <h2>Register User</h2>
         {this.props.store.errors.registrationMessage && (
           <h3 className="alert" role="alert">
@@ -39,6 +39,7 @@ class RegisterForm extends Component {
           <label htmlFor="username">
             Username:
             <input
+              className="box"
               type="text"
               name="username"
               value={this.state.username}
@@ -51,6 +52,7 @@ class RegisterForm extends Component {
           <label htmlFor="password">
             Password:
             <input
+              className="box"
               type="password"
               name="password"
               value={this.state.password}
@@ -60,7 +62,7 @@ class RegisterForm extends Component {
           </label>
         </div>
         <div>
-          <input className="btn" type="submit" name="submit" value="Register" />
+          <input className="box" type="submit" name="submit" value="Register" />
         </div>
       </form>
     );
