@@ -12,17 +12,34 @@ class UserPage extends Component {
       //   <p>Your ID is: {this.props.store.user.id}</p>
       //   <LogOutButton className="box" />
       // </div>
-      <main>
-        <section className="grid">
-          <section className="column characters">
+      <section>
+          <div className="box full">
             <figure className="ness">
               <span></span>
-              <figcaption className="box">Random Pick of the Day</figcaption>
+              <figcaption>Random Pick of the Day</figcaption>
               {/* Need to get random lure to appear here */}
             </figure>
+          </div>
+          <section className="grid">
+            <section className="column characters">
+              <figure className="ness">
+                <span>
+                  <button className="box">Search</button>
+                </span>
+              </figure>
+            </section>
           </section>
-        </section>
-      </main>
+          <section className="column">
+            <aside className="characters">
+              <figure className="king">
+                <span>
+                  <button className="box">Add Lure</button>
+                </span>
+              </figure>
+            </aside>
+          </section>
+      </section>
+  
     );
   }
 }
