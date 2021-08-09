@@ -33,3 +33,7 @@ router.post('/', rejectUnauthenticated, (req,res) => {
         res.sendStatus(500)
     })
 });
+
+//DELETE a lure of user logged in
+
+module.exports = router;

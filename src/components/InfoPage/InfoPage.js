@@ -1,72 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
+import './infoPage.css';
 
 function LuresLibrary() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const lureReducer = useSelector(store => store.luresReducer);
+  //const history = useHistory();
+  const lures = useSelector(store => store.luresReducer);
+  const user = useSelector(store => store.user);
 
   //FOR ADDING NEW LURE
-  // useEffect(() => {
-  //   console.log('We are getting lures', history.location.pathname);
-  //   dispatch({type: 'FETCH_LURES'});
-  // }, []);
+  useEffect(() => {
+    console.log('We are getting lures');
+    dispatch({type: 'GET_LURES'});
+  }, []);
 
-  const lureDetails = (lure) => {
-    console.log('Lure details', lure);
-    dispatch({type: 'LURE_DETAILS', payload: lure})
-    history.push('/details')
-  }
+  // const lureDetails = (lure) => {
+  //   console.log('Lure details', lure);
+  //   dispatch({type: 'LURE_DETAILS', payload: lure})
+  //   history.push('/details')
+  // }
+  console.log('looking for', lures);
 
   return (
-    // <main>
-    //   <h1>Lure Library</h1>
-    //   <section className="box">
-    //     {lures.map((lure,index) => {
-    //       return (
-    //         <tr key={index}>
-    //           <td><img src={lure.image} /></td>
-    //           <td>{lure.name}</td>
-    //           <td>{lure.description}</td>
-    //         </tr>
-    //       );
-    //     })}
-    //   </section>
-    // </main>
-    <div className="container">
-      <h2>Library(UNDER CONSTRUCTION)</h2>
+    <div className="box full">
+      <h2>Library</h2>
       <table>
         <thead>
           <tr>
             <th></th>
-            <th>Description</th>
+            <th>Lures</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          {/* {lureReducer.map((lure, index) => {
+          {lures.luresReducer.map((lure, index) => {
             return ( <tr key={index}>
-              <td><img src={lure.name} /></td>
-              <td>{lure.description}</td> */}
-              {/* {
+              <td>{lure.name} </td>
+              <img src={lure.image} width="150"></img> 
+              <td>{lure.user_id}</td>
+              {
                 ( user.id === lure.user_id) ?
-                <td><button onClick={() => dispatch({ type: 'DELETE_YOUR_ITEM', payload: item.id})}>Delete</button></td> :
+                <td><button onClick={() => dispatch({ type: 'DELETE_LURE', payload: lure.id})}>Delete</button></td> :
                 <td><button disabled>Delete</button></td>
-              } */}
-              {/* if( user.id === item.user_id) {
-                <td><button onClick={dispatch({ type: 'DELETE_YOUR_ITEM', payload: item.id})}></button></td>
-                } */}
-            {/* </tr>
+              }
+            </tr>
               )
-          })} */}
+          })}
         </tbody>
 
         
 
 
       </table>
-      <p>All of the Lures can be seen here.</p>
     </div>
   );
 }

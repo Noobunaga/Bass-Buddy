@@ -35,10 +35,11 @@ function* addLure(action) {
     };
 };
 
-function* deleteItem(action) {
+function* deleteLure(action) {
     const id = action.payload;
     try {
         yield call(axios.delete, `/api/lures/${id}`);
+        yield put({type: 'GET_LURES'})
     }
     catch (error) {
         console.log('Error deleting', error);
@@ -49,7 +50,7 @@ function* getAllLuresSaga(){
     yield takeLatest('GET_LURES', getAllLures);
     yield takeLatest('GET_USER_LURES', getUserLures);
     yield takeEvery('ADD_ITEM',addLure);
-    yield takeEvery('DELETE_LURE', deleteItem);
+    yield takeEvery('DELETE_LURE', deleteLure);
 };
 
 export default getAllLuresSaga;
