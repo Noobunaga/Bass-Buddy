@@ -23,12 +23,27 @@ router.post('/', rejectUnauthenticated, (req,res) => {
     console.log(req.body);
     const insertLure = `
         INSERT INTO "lures" ("name", "image", "description", "user_id")
-        VALUES ($1, $2, $3, $4);`;
+        VALUES ($1, $2, $3, $4)
+        RETURNING "id";`;
 
     pool.query(insertLure, [req.body.name, req.body.image, req.body.description, req.body.user.id])
-    .then(results => {
+    .then(result => {
         console.log('Add lure for logged in user Successful');
+        const createLureId = result.rows[0].id
+
+        const insertHabitatQuery = `
+        INSERT INTO "lures_habitats" ("lures_id", "habitat_id")
+        VALUES ($1, $2);`
+        pool.query(insertHabitatQuery, [createLureId, req.body.habitat_id])
+        .then(result => {
         res.sendStatus(201);
+    })
+    //second query catch
+    .catch(err => {
+        console.log(err);
+        res.sendStatus(500)
+    })
+    //first query catch
     })
     .catch(err => {
         console.log(err);
