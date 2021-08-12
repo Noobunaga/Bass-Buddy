@@ -20,10 +20,10 @@ function AddLure() {
     
 
 
-    const lureHandler = [
-        {value: 0, label: "Select Lure"}, {value: 1, label: "Crankbait"},
-        {value: 2, label: "Jerkbait"}, {value: 3, label: "Frog"},
-        {value: 4, label: "Ned Rig"}, {value: 5, label: "Wacky Rig"}];
+    // const lureHandler = [
+    //     {value: 0, label: "Select Lure"}, {value: 1, label: "Crankbait"},
+    //     {value: 2, label: "Jerkbait"}, {value: 3, label: "Frog"},
+    //     {value: 4, label: "Ned Rig"}, {value: 5, label: "Wacky Rig"}];
 
     const weatherHandler = [
         {value: 0, label: "Select Weather Type"}, {value: 1, label: "Sunny"},
@@ -79,6 +79,7 @@ function AddLure() {
             type:"POST_LURE",
             payload: { date: date, name: name, weather: weather, wind: wind, depth: depth, clarity: clarity, temp: temp, habitat_id: habitat}
         });
+        console.log('what is here');
         history.push('/info')
     };
 
@@ -87,7 +88,7 @@ function AddLure() {
             <form action="submit">
                 <h2 className="box full">Add A New Lure</h2>
                 <div className="box" action="/action_page.php">
-                    <label htmlFor="date and time">Date and Time</label>
+                    <label htmlFor="date and time">Date/Time</label>
                     <input type="datetime-local" id="date and time" name="date and time"></input>
                     {/* <input className="box" type="submit"></input> */}
                 </div>
@@ -100,13 +101,14 @@ function AddLure() {
                 </select> */}
                 <section className="grid">
                 <figure>
-                <select className="box" id="lure selector" label="Select Lure" onChange={(event) => setName(event.target.value)}>
+                {/* <select className="box" id="lure selector" label="Select Lure" onChange={(event) => setName(event.target.value)}>
                    {lureHandler.map((option) => (
                        <option key={option.value} value={option.value}>
                            {option.label}
                        </option>
                    ))}
-                </select>
+                </select> */}
+                <field className="box" name="Lure Name" component="input" type="text">Lure Name</field>
                 </figure>
                 </section>
                 <section className="grid">
