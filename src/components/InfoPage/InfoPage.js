@@ -37,7 +37,7 @@ function LuresLibrary() {
           {lures.luresReducer.map((lure, index) => {
             return ( <tr key={index}>
               <td>{lure.name} </td>
-              <img src={lure.image} width="150"></img> 
+              <td><img src={lure.image} width="150"/></td> 
               <td>{lure.user_id}</td>
               {
                 ( user.id === lure.user_id) ?

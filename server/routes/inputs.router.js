@@ -179,4 +179,12 @@ router.get('/:id', (req, res) => {
 //     })
 // });
 
+
+// router.post('/', (req, res) => {
+//     console.log(req.body);
+//     const insertLureQuery = `
+//     INSERT INTO "lures" ("name", "image", "description", "user_id")
+//     `
+// })
+
 module.exports = router;

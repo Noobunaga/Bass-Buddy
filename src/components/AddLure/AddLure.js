@@ -3,14 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 
 
+
 function AddLure() {
     const dispatch = useDispatch();
     const history = useHistory();
-    const lures = useSelector(store => store.lures);
-    const habitats = useSelector(store => store.habitats);
+    // const lures = useSelector(store => store.lures);
+    // const habitats = useSelector(store => store.habitats);
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
     //const [image, setImage] = useState('');
+    //const [description, setDescription] = useState('');
     const [weather, setWeather] = useState('');
     const [wind, setWind] = useState('');
     const [depth, setDepth] = useState('');
@@ -74,22 +76,39 @@ function AddLure() {
         {value: 12, label: "Boulders"}, {value: 13, label: "Docks"},
         {value: 14, label: "Point"}];
 
-    const submit = () => {
+    const submitLure = () => {
+        const lureToAdd = {
+            date: date,
+            name: name,
+            type: weather,
+            speed: wind,
+            depth: depth,
+            clarity: clarity,
+            temp: temp,
+            area: habitat,
+        };
+        console.log(lureToAdd);
         dispatch({
-            type:"POST_LURE",
-            payload: { date: date, name: name, weather: weather, wind: wind, depth: depth, clarity: clarity, temp: temp, habitat_id: habitat}
+            type:"ADD_LURE",
+            payload: lureToAdd
         });
-        console.log('what is here');
-        history.push('/info')
+        setDate('');
+        setName('');
+        setWeather('');
+        setWind('');
+        setDepth('');
+        setClarity('');
+        setTemp('');
+        setHabitat('');
     };
 
     return(
         <section>
             <form action="submit">
                 <h2 className="box full">Add A New Lure</h2>
-                <div className="box" action="/action_page.php">
-                    <label htmlFor="date and time">Date/Time</label>
-                    <input type="datetime-local" id="date and time" name="date and time"></input>
+                <div className="box full" action="/action_page.php">
+                    <label htmlFor="date">Date</label>
+                    <input type="datetime-local" id="date" name="date" onChange={(event) => setDate(event.target.value)}/>
                     {/* <input className="box" type="submit"></input> */}
                 </div>
                 {/* <select className="box" id="Date and time" label="Select Habitat" onChange={(event) => setdate(event.target.value)}>
@@ -99,8 +118,8 @@ function AddLure() {
                        </option>
                    ))}
                 </select> */}
-                <section className="grid">
-                <figure>
+                <div className="grid">
+                    <figure>
                 {/* <select className="box" id="lure selector" label="Select Lure" onChange={(event) => setName(event.target.value)}>
                    {lureHandler.map((option) => (
                        <option key={option.value} value={option.value}>
@@ -108,12 +127,12 @@ function AddLure() {
                        </option>
                    ))}
                 </select> */}
-                <field className="box" name="Lure Name" component="input" type="text">Lure Name</field>
-                </figure>
-                </section>
+                        <input className="box" name="lureName" type="text" label ="Lure Name" onChange={(event) => setName(event.target.value)} />
+                    </figure>
+                </div>
                 <section className="grid">
                 <figure>
-                <select className="box" id="weather selector" label="Select Weather" onChange={(event) => setWeather(event.target.value)}>
+                <select className="box" id="weatherSelector" label="Select Weather" onChange={(event) => setWeather(event.target.value)}>
                    {weatherHandler.map((option) => (
                        <option key={option.value} value={option.value}>
                            {option.label}
@@ -179,7 +198,7 @@ function AddLure() {
                 </section>
                 <section className="grid">
                     <figure className="ness">
-                        <button className="box" onClick={submit}>Add</button>
+                        <button className="box" onClick={submitLure}>Add</button>
                     </figure>
                 <aside className="characters">
                     <figure className="ness">
