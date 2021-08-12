@@ -20,7 +20,7 @@ class LandingPage extends Component {
     return (
       <section className="grid">
       <div className="box">
-        <h2>{this.state.heading}</h2>
+        {/* <h2>{this.state.heading}</h2> */}
 
         <div className="grid">
           <div className="box">

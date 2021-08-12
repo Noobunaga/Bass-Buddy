@@ -38,9 +38,9 @@ const Nav = (props) => {
           </>
         )}
         {/* Always show this link since the about page is not protected */}
-        <Link className="box" to="/about">
+        {/* <Link className="box" to="/about">
           About
-        </Link>
+        </Link> */}
       </div>
     </div>
   );

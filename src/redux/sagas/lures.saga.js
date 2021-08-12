@@ -49,7 +49,7 @@ function* deleteLure(action) {
 function* getAllLuresSaga(){
     yield takeLatest('GET_LURES', getAllLures);
     yield takeLatest('GET_USER_LURES', getUserLures);
-    yield takeEvery('ADD_ITEM', addLure);
+    yield takeEvery('ADD_LURE', addLure);
     yield takeEvery('DELETE_LURE', deleteLure);
 };
 

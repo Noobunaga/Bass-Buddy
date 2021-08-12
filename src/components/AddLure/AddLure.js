@@ -7,12 +7,10 @@ import { useHistory } from 'react-router';
 function AddLure() {
     const dispatch = useDispatch();
     const history = useHistory();
-    // const lures = useSelector(store => store.lures);
-    // const habitats = useSelector(store => store.habitats);
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
-    //const [image, setImage] = useState('');
-    //const [description, setDescription] = useState('');
+    const [image, setImage] = useState('');
+    const [description, setDescription] = useState('');
     const [weather, setWeather] = useState('');
     const [wind, setWind] = useState('');
     const [depth, setDepth] = useState('');
@@ -21,11 +19,6 @@ function AddLure() {
     const [habitat, setHabitat] = useState('');
     
 
-
-    // const lureHandler = [
-    //     {value: 0, label: "Select Lure"}, {value: 1, label: "Crankbait"},
-    //     {value: 2, label: "Jerkbait"}, {value: 3, label: "Frog"},
-    //     {value: 4, label: "Ned Rig"}, {value: 5, label: "Wacky Rig"}];
 
     const weatherHandler = [
         {value: 0, label: "Select Weather Type"}, {value: 1, label: "Sunny"},
@@ -76,10 +69,13 @@ function AddLure() {
         {value: 12, label: "Boulders"}, {value: 13, label: "Docks"},
         {value: 14, label: "Point"}];
 
-    const submitLure = () => {
+    const submitLure = (event) => {
+        event.preventDefault();
         const lureToAdd = {
-            date: date,
+            //date: date,
             name: name,
+            image: image,
+            description: description,
             type: weather,
             speed: wind,
             depth: depth,
@@ -92,8 +88,10 @@ function AddLure() {
             type:"ADD_LURE",
             payload: lureToAdd
         });
-        setDate('');
+        //setDate('');
         setName('');
+        setImage('');
+        setDescription('');
         setWeather('');
         setWind('');
         setDepth('');
@@ -101,35 +99,27 @@ function AddLure() {
         setTemp('');
         setHabitat('');
     };
+    console.log(name, image, description);
 
     return(
         <section>
             <form action="submit">
                 <h2 className="box full">Add A New Lure</h2>
-                <div className="box full" action="/action_page.php">
-                    <label htmlFor="date">Date</label>
-                    <input type="datetime-local" id="date" name="date" onChange={(event) => setDate(event.target.value)}/>
-                    {/* <input className="box" type="submit"></input> */}
-                </div>
-                {/* <select className="box" id="Date and time" label="Select Habitat" onChange={(event) => setdate(event.target.value)}>
-                   {dateHandler.map((option) => (
-                       <option key={option.value} value={option.value}>
-                           {option.label}
-                       </option>
-                   ))}
-                </select> */}
-                <div className="grid">
-                    <figure>
-                {/* <select className="box" id="lure selector" label="Select Lure" onChange={(event) => setName(event.target.value)}>
-                   {lureHandler.map((option) => (
-                       <option key={option.value} value={option.value}>
-                           {option.label}
-                       </option>
-                   ))}
-                </select> */}
-                        <input className="box" name="lureName" type="text" label ="Lure Name" onChange={(event) => setName(event.target.value)} />
-                    </figure>
-                </div>
+                <section className="grid">
+                        <figure>
+                            <input className="box" name="lureName" type="text" label ="lureName" onChange={(event) => setName(event.target.value)} />
+                        </figure>
+                    </section>
+                <section className="grid">
+                        <figure>
+                            <input className="box" name="lureImage" type="text" label ="image" onChange={(event) => setImage(event.target.value)} />
+                        </figure>
+                    </section>
+                    <section className="grid">
+                        <figure>
+                            <input className="box" name="lureDescription" type="text" label ="description" onChange={(event) => setDescription(event.target.value)} />
+                        </figure>
+                    </section>
                 <section className="grid">
                 <figure>
                 <select className="box" id="weatherSelector" label="Select Weather" onChange={(event) => setWeather(event.target.value)}>
@@ -198,7 +188,7 @@ function AddLure() {
                 </section>
                 <section className="grid">
                     <figure className="ness">
-                        <button className="box" onClick={submitLure}>Add</button>
+                        <button className="box" onClick={(event) => submitLure(event)}>Add</button>
                     </figure>
                 <aside className="characters">
                     <figure className="ness">

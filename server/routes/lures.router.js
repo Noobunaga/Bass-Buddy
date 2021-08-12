@@ -32,34 +32,29 @@ router.post('/', rejectUnauthenticated, (req,res) => {
         VALUES ($1, $2, $3, $4)
         RETURNING "id" as lure_id
     )
-    INSERT INTO "lures_date" ('date_id', 'lures_id')VALUES("date", lure_id)
-    INSERT INTO "lures_weather" ('weather_id', 'lures_id')VALUES("weather", lure_id)
-    INSERT INTO "lures_wind" ('weather_id', 'lures_id')VALUES("wind", lure_id)
-    INSERT INTO "lures_water_depth" ('weather_id', 'lures_id')VALUES("depth", lure_id)
-    INSERT INTO "lures_water_clarity" ('weather_id', 'lures_id')VALUES("clarity", lure_id)
-    INSERT INTO "lures_water_temp" ('weather_id', 'lures_id')VALUES("temp", lure_id)
-    INSERT INTO "lures_habitat" ('habitat_id', 'lures_id')VALUES("habitat", lure_id)
+
+    INSERT INTO "lures_weather" ('weather_id', 'lures_id')VALUES($5, lure_id)
+    INSERT INTO "lures_wind" ('wind_id', 'lures_id')VALUES($6, lure_id)
+    INSERT INTO "lures_water_depth" ('water_depth_id', 'lures_id')VALUES($7, lure_id)
+    INSERT INTO "lures_water_clarity" ('water_clarity_id', 'lures_id')VALUES($8, lure_id)
+    INSERT INTO "lures_water_temp" ('water_temp_id', 'lures_id')VALUES($9, lure_id)
+    INSERT INTO "lures_habitat" ('habitat_id', 'lures_id')VALUES($10, lure_id)
     ;`
-
-    pool.query(insertLure, [req.body.name, req.body.image, req.body.description, req.body.user.id])
-
+        console.log(now);
+    pool.query(insertLure, [
+        req.body.name,
+        req.body.image, 
+        req.body.description, 
+        req.user.id,
+        req.body.type,
+        req.body.speed,
+        req.body.depth,
+        req.body.clarity,
+        req.body.temp,
+        req.body.area
+    ])
     .then(result => {
-        console.log('Add lure for logged in user Successful');
-        const createLureId = result.rows[0].id
-
-        const insertHabitatQuery = `
-        INSERT INTO "lures_habitats" ("lures_id", "habitat_id")
-        VALUES ($1, $2);`
-        pool.query(insertHabitatQuery, [createLureId, req.body.habitat_id])
-        .then(result => {
-        res.sendStatus(201);
-    })
-    //second query catch
-    .catch(err => {
-        console.log(err);
-        res.sendStatus(500)
-    })
-    //first query catch
+    res.sendStatus(201);
     })
     .catch(err => {
         console.log(err);

@@ -39,11 +39,11 @@ function LuresLibrary() {
               <td>{lure.name} </td>
               <td><img src={lure.image} width="150"/></td> 
               <td>{lure.user_id}</td>
-              {
+              {/* {
                 ( user.id === lure.user_id) ?
                 <td><button onClick={() => dispatch({ type: 'DELETE_LURE', payload: lure.id})}>Delete</button></td> :
                 <td><button disabled>Delete</button></td>
-              }
+              } */}
             </tr>
               )
           })}
