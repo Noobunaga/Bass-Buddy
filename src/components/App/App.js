@@ -20,6 +20,9 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddLure from '../AddLure/AddLure';
+import EditLurePage from '../EditLurePage/EditLurePage';
+import SearchPage from '../SearchPage/SearchPage';
+import LureDescription from '../LureDescription/LureDescription';
 
 import './App.css';
 
@@ -110,6 +113,27 @@ class App extends Component {
               <AddLure/>
             </ProtectedRoute>
             
+
+            <ProtectedRoute
+            exact
+            path="/editLure/:lureId"
+            >
+              <EditLurePage/>
+            </ProtectedRoute>
+
+            <ProtectedRoute
+            exact
+            path="/searchLure"
+            >
+              <SearchPage/>
+            </ProtectedRoute>
+
+            <ProtectedRoute
+            exact
+            path="/lureDescription"
+            >
+              <LureDescription/>
+            </ProtectedRoute>
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

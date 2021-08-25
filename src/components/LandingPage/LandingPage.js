@@ -28,9 +28,11 @@ class LandingPage extends Component {
 
             <center>
               <h4>Already a Member?</h4>
+              <figure>
               <button className="box" onClick={this.onLogin}>
                 Login
               </button>
+              </figure>
             </center>
           </div>
         </div>

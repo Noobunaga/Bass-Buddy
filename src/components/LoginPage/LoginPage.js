@@ -10,6 +10,7 @@ class LoginPage extends Component {
         <LoginForm />
 
         <center>
+        <figure>
           <button
             type="button"
             className="box"
@@ -19,6 +20,7 @@ class LoginPage extends Component {
           >
             Register
           </button>
+          </figure>
         </center>
       </div>
     );

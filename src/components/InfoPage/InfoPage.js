@@ -1,26 +1,37 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import './infoPage.css';
 
 function LuresLibrary() {
   const dispatch = useDispatch();
-  //const history = useHistory();
+  const history = useHistory();
   const lures = useSelector(store => store.luresReducer);
   const user = useSelector(store => store.user);
+  const params = useParams();
 
   //FOR ADDING NEW LURE
   useEffect(() => {
     console.log('We are getting lures');
-    dispatch({type: 'GET_LURES'});
-  }, []);
+    dispatch({type: 'GET_LURES', payload: {lureId: params.id}});
+  }, [params.id]);
 
   // const lureDetails = (lure) => {
   //   console.log('Lure details', lure);
   //   dispatch({type: 'LURE_DETAILS', payload: lure})
   //   history.push('/details')
   // }
-  console.log('looking for', lures);
+
+  const editLure = (event, lureId) => {
+    event.preventDefault();
+    history.push(`/editLure/${lureId}`)
+  }
+
+  const lureDetails = (lure) => {
+    console.log('Lure details', lure);
+    dispatch({type: 'SET_LURE_DETAILS', payload: lure})
+    history.push(`/lureDescription`)
+  }
 
   return (
     <div className="box full">
@@ -37,21 +48,21 @@ function LuresLibrary() {
           {lures.luresReducer.map((lure, index) => {
             return ( <tr key={index}>
               <td>{lure.name} </td>
-              <td><img src={lure.image} width="150"/></td> 
-              <td>{lure.user_id}</td>
-              {/* {
+              <td><img src={lure.image} width="100" onClick={() => lureDetails(lure.id)}/></td> 
+              {
                 ( user.id === lure.user_id) ?
                 <td><button onClick={() => dispatch({ type: 'DELETE_LURE', payload: lure.id})}>Delete</button></td> :
-                <td><button disabled>Delete</button></td>
-              } */}
+                <td><button disabled></button></td>
+              }
+              {
+                ( user.id === lure.user_id) ?
+                <td><button onClick={(event) => editLure(event, lure.id)}>Edit</button></td> :
+                <td><button disabled></button></td>
+              }
             </tr>
               )
           })}
         </tbody>
-
-        
-
-
       </table>
     </div>
   );

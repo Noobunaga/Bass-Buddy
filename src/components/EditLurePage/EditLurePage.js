@@ -1,26 +1,45 @@
-import React from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector, } from 'react-redux';
 import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 
 
-function SearchPage() {
-    const [search, setSearch] = useState('');
-    const dispatch = useDispatch('');
-    const history = useHistory('');
 
-    const searchLure = (event) => {
+function EditLurePage() {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const {lureId} = useParams();
+    
+    const [lure, setLure] = useState({
+        image:"",
+        description:"",
+        weather:"",
+        wind:"",
+        depth:"",
+        clarity:"",
+        temperature:"",
+        habitat:""
+    })
+
+    const editLure = (event) => {
         event.preventDefault();
+        let updateLure = lure;
+        updateLure.id = lureId;
+        console.log('updating lure', updateLure);
         dispatch({
-            type: 'SEARCH',
-            payload: searchLure
-        })
-        history.push('/results')
+            type:"EDIT_LURE", 
+            payload: updateLure
+
+
+        });
+    
+        history.push('/info');
     };
 
     const cancel = (event) => {
         history.push('/info');
     }
+
 
     const weatherHandler = [
         {value: 0, label: "Select Weather Type"}, {value: "Sunny", label: "Sunny"},
@@ -75,14 +94,40 @@ function SearchPage() {
     return(
         <section>
             <form className="box full" action="submit">
-                <h2>Search Lure</h2>
+                <h2>Update Lure</h2>
+                <section className="grid">
+                    <label>
+                        Image:
+                        <figure>
+                            <input 
+                            className="box" 
+                            name="lureImage" 
+                            type="text" 
+                            value={lure.image} 
+                            onChange={(event) => setLure({...lure, image: event.target.value})} />
+                        </figure>
+                        </label>
+                    </section>
+                    <section className="grid">
+                    <label>
+                        Description:
+                        <figure>
+                            <input 
+                            className="box" 
+                            name="lureDescription" 
+                            type="text" 
+                            value={lure.description} 
+                            onChange={(event) => setLure({...lure, description: event.target.value})} />
+                        </figure>
+                        </label>
+                    </section>
                 <section className="grid">
                     <figure>
                         <select 
                         className="box" 
                         id="weatherSelector" 
-                        value={search.weather} 
-                        onChange={(event) => setSearch(event.target.value)}>
+                        value={lure.weather} 
+                        onChange={(event) => setLure({...lure, weather: event.target.value})}>
                             {weatherHandler.map((option) => (
                                 <option key={option.value} value={option.value}>
                                 {option.label}
@@ -96,8 +141,8 @@ function SearchPage() {
                         <select 
                         className="box" 
                         id="wind selector" 
-                        value={search.wind} 
-                        onChange={(event) => setSearch(event.target.value)}>
+                        value={lure.wind} 
+                        onChange={(event) => setLure({...lure, wind: event.target.value})}>
                             {windHandler.map((option) => (
                                 <option key={option.value} value={option.value}>
                                 {option.label}
@@ -111,8 +156,8 @@ function SearchPage() {
                         <select 
                         className="box" 
                         id="depth selector" 
-                        value={search.depth} 
-                        onChange={(event) => setSearch(event.target.value)}>
+                        value={lure.depth} 
+                        onChange={(event) => setLure({...lure, depth: event.target.value})}>
                             {depthHandler.map((option) => (
                                 <option key={option.value} value={option.value}>
                                 {option.label}
@@ -126,8 +171,8 @@ function SearchPage() {
                         <select 
                         className="box" 
                         id="clarity selector" 
-                        value={search.clarity} 
-                        onChange={(event) => setSearch(event.target.value)}>
+                        value={lure.clarity} 
+                        onChange={(event) => setLure({...lure, clarity: event.target.value})}>
                             {clarityHandler.map((option) => (
                                 <option key={option.value} value={option.value}>
                                 {option.label}
@@ -141,8 +186,8 @@ function SearchPage() {
                         <select 
                         className="box" 
                         id="temp selector" 
-                        value={search.temperature} 
-                        onChange={(event) => setSearch(event.target.value)}>
+                        value={lure.temperature} 
+                        onChange={(event) => setLure({...lure, temperature: event.target.value})}>
                             {tempHandler.map((option) => (
                                 <option key={option.value} value={option.value}>
                                 {option.label}
@@ -156,8 +201,8 @@ function SearchPage() {
                     <select 
                     className="box" 
                     id="habitat selector" 
-                    value={search.habitat} 
-                    onChange={(event) => setSearch(event.target.value)}>
+                    value={lure.habitat} 
+                    onChange={(event) => setLure({...lure, habitat: event.target.value})}>
                         {habitatHandler.map((option) => (
                             <option key={option.value} value={option.value}>
                                 {option.label}
@@ -170,7 +215,7 @@ function SearchPage() {
                     <figure className="ness">
                         <button 
                         className="box" 
-                        onClick={(event) => searchLure(event)}>Search</button>
+                        onClick={(event) => editLure(event)}>Update</button>
                     </figure>
                 <aside className="characters">
                     <figure className="ness">
@@ -184,4 +229,5 @@ function SearchPage() {
         </section>
     )
 }
-export default SearchPage;
+
+export default EditLurePage;

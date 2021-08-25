@@ -42,6 +42,7 @@ class LoginForm extends Component {
         <div>
           <label htmlFor="username">
             Username:
+            <figure>
             <input
               className="box"
               type="text"
@@ -50,11 +51,13 @@ class LoginForm extends Component {
               value={this.state.username}
               onChange={this.handleInputChangeFor('username')}
             />
+            </figure>
           </label>
         </div>
         <div>
           <label htmlFor="password">
             Password:
+            <figure>
             <input
               className="box"
               type="password"
@@ -63,10 +66,13 @@ class LoginForm extends Component {
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
             />
+            </figure>
           </label>
         </div>
         <div>
-          <input className="box" type="submit" name="submit" value="Log In" />
+          <figure>
+            <input className="box" type="submit" name="submit" value="Log In" />
+          </figure>
         </div>
       </form>
     );

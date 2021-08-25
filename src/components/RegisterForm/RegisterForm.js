@@ -38,6 +38,7 @@ class RegisterForm extends Component {
         <div>
           <label htmlFor="username">
             Username:
+            <figure>
             <input
               className="box"
               type="text"
@@ -46,11 +47,13 @@ class RegisterForm extends Component {
               required
               onChange={this.handleInputChangeFor('username')}
             />
+            </figure>
           </label>
         </div>
         <div>
           <label htmlFor="password">
             Password:
+            <figure>
             <input
               className="box"
               type="password"
@@ -59,11 +62,14 @@ class RegisterForm extends Component {
               required
               onChange={this.handleInputChangeFor('password')}
             />
+            </figure>
           </label>
         </div>
+        <figure>
         <div>
           <input className="box" type="submit" name="submit" value="Register" />
         </div>
+        </figure>
       </form>
     );
   }
