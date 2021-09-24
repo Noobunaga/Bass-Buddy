@@ -3,6 +3,10 @@ import loginSaga from './login.saga';
 import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import getAllLuresSaga from './lures.saga';
+import addLureSaga from './addLure.saga';
+import editLureSaga from './editLure.saga';
+import deleteLureSaga from './deleteLure.saga';
+import fetchLureDetail from './lureDetails.saga';
 
 
 // rootSaga is the primary saga.
@@ -18,6 +22,9 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     getAllLuresSaga(),
-    //luresSaga(),
+    addLureSaga(),
+    editLureSaga(),
+    deleteLureSaga(),
+    fetchLureDetail(),
   ]);
 }

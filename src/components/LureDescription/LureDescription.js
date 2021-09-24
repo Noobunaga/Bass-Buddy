@@ -5,24 +5,26 @@ import { useHistory } from 'react-router';
 import { useParams } from 'react-router';
 
 
-function LureDescription(lureId) {
+function LureDescription() {
+
+    useEffect(() => {
+        dispatch({type: 'FETCH_LURE_DETAILS'})
+    }, []);
+    
     const dispatch = useDispatch();
     const history = useHistory();
-    const lure = useSelector(store => store.luresReducer.luresReducer);
-    const {lures} = useParams();
-
+    const lure = useSelector(store => store.luresReducer.lureDetails);
+    const {lureId} = useParams();
+    console.log('what is lure in lureDescription', lure);
 
     const goToLibrary = () => {
         history.push('/info')
     };
 
-    useEffect(() => {
-        dispatch({type: 'FETCH_LURE_DETAILS'})
-        console.log('What lure description is coming in js',lure);
-    }, []);
+
 
     return(
-        <div className="box full" id={lure.id}>
+        <div className="box full" >
             <h1>Lure Description</h1>
             <table>
                 <thead>

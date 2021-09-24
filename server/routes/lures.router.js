@@ -121,79 +121,21 @@ router.get('/:search', (req, res) => {
     })
 });
 
+router.get('/details/:lureId', (req, res) => {
+    const lureId = req.params.lureId;
+    const queryText = `
+        SELECT *
+        FROM "lures"
+        WHERE "id" = $1;
+        `;
+    pool.query(queryText, [lureId])
+        .then(result => {
+            res.send(result.rows);
+        })
+        .catch(error => {
+            console.log('ERROR: Get lure details', err);
+            res.sendStatus(500)
+        })
+});
+
 module.exports = router;
-
-// router.post('/', async (req, res) => {
-//  await pool.connect();
-
-//     try {
-//         const {
-//             customer_name,
-//             street_address,
-//             city,
-//             zip,
-//             type,
-//             total,
-//             pizzas
-//         } = req.body;
-//         await client.query('BEGIN')
-//         await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-//         VALUES ($1, $2, $3, $4, $5, $6)
-//         await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-//         VALUES ($1, $2, $3, $4, $5, $6)
-//         await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-//         VALUES ($1, $2, $3, $4, $5, $6)
-//         await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-//         VALUES ($1, $2, $3, $4, $5, $6)
-//         await client.query(`INSERT INTO "orders" ("customer_name", "street_address", "city", "zip", "type", "total")
-//         VALUES ($1, $2, $3, $4, $5, $6)
-//         RETURNING id;`, [customer_name, street_address, city, zip, type, total]);
-//         const orderId = orderInsertResults.rows[0].id;
-
-//         await client.query('COMMIT')
-//         res.sendStatus(201);
-//     } catch (error) {
-//         await client.query('ROLLBACK')
-//         console.log('Error POST /api/order', error);
-//         res.sendStatus(500);
-//     } finally {
-//         client.release()
-//     }
-// });
-
-//ORIGIN CODE
-// const now = new Date();
-//     const insertLure = `
-//     WITH lures_list as (
-//         INSERT INTO "lures" ("name", "image", "description", "user_id")
-//         VALUES ($1, $2, $3, $4)
-//         RETURNING "id" as lure_id
-//     )
-
-//     INSERT INTO "lures_weather" ("weather_id", "lures_id")VALUES($5, lures_list.lure_id);
-//     INSERT INTO "lures_wind" ("wind_id", "lures_id")VALUES($6, lures.lure_id)
-//     INSERT INTO "lures_water_depth" ("water_depth_id", "lures_id")VALUES($7, lures.lure_id)
-//     INSERT INTO "lures_water_clarity" ("water_clarity_id", "lures_id")VALUES($8, lures.lure_id)
-//     INSERT INTO "lures_water_temp" ("water_temp_id", "lures_id")VALUES($9, lures.lure_id)
-//     INSERT INTO "lures_habitat" ("habitat_id", "lures_id")VALUES($10, lures.lure_id)
-//     ;`;
-//         console.log(now);
-//     pool.query(insertLure, [
-//         req.body.name,
-//         req.body.image, 
-//         req.body.description, 
-//         req.user.id,
-//         req.body.type
-//         // req.body.speed,
-//         // req.body.depth,
-//         // req.body.clarity,
-//         // req.body.temp,
-//         // req.body.area
-//     ])
-//     .then(result => {
-//     res.sendStatus(201);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//         res.sendStatus(500)
-//     })

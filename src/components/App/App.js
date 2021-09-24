@@ -130,7 +130,7 @@ class App extends Component {
 
             <ProtectedRoute
             exact
-            path="/lureDescription"
+            path="/lureDescription/:lureId"
             >
               <LureDescription/>
             </ProtectedRoute>

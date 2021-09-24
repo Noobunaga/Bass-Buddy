@@ -21,27 +21,11 @@ const userLuresReducer = (state = [], action) => {
     }
 }
 
-const editLure = (state = {image:'', description:'', weather:'', wind:'', depth:'', clarity:'', temperature:'', habitat:''}, action) => {
-    switch (action.type) {
-        case 'EDIT_LURE':
-            return action.payload;
-        default:
-            return state;
-    }
-}
 
-const lureDetail = (state = [0], action) => {
-    if(action.type === 'SET_LURE_DETAILS'){
-        return state = action.payload
-    }
-    return state;
-}
 
 export default combineReducers({
     luresReducer,
     userLuresReducer,
-    editLure,
-    lureDetail,
   });
   
 

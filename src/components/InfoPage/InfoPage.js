@@ -27,10 +27,10 @@ function LuresLibrary() {
     history.push(`/editLure/${lureId}`)
   }
 
-  const lureDetails = (lure) => {
-    console.log('Lure details', lure);
-    dispatch({type: 'SET_LURE_DETAILS', payload: lure})
-    history.push(`/lureDescription`)
+  const lureDetails = (lureId) => {
+    console.log('Lure details', lureId);
+    dispatch({type: 'FETCH_LURE_DETAILS', payload: lureId})
+    history.push(`/lureDescription/${lureId}`)
   }
 
   return (
